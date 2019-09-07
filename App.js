@@ -21,7 +21,10 @@ export default class App extends React.Component {
   async componentDidMount(){
     await Font.loadAsync({
       'Cairo': require('./assets/fonts/Cairo-Regular.ttf'),
-      'Cairo-Black': require('./assets/fonts/Cairo-Black.ttf')
+      'Cairo-Black': require('./assets/fonts/Cairo-Black.ttf'),
+      'Cairo-Light': require('./assets/fonts/Cairo-Light.ttf'),
+      'Cairo-ExtraLight': require('./assets/fonts/Cairo-ExtraLight.ttf'),
+      'Cairo-Bold': require('./assets/fonts/Cairo-Bold.ttf'),
     });
 
     this.setState({assetsLoaded: true})
