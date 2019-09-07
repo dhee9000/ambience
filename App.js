@@ -1,12 +1,16 @@
 import React, {useEffect} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+
+import { Provider } from 'react-redux';
+import setupReduxStore from './src/redux/store';
 
 import * as Font from 'expo-font';
 
 import { createAppContainer } from 'react-navigation';
 import RootNavigator from './src/react/navigation';
-
 const AppContainer = createAppContainer(RootNavigator);
+
+const reduxStore = setupReduxStore();
 
 export default class App extends React.Component {
 
@@ -31,11 +35,12 @@ export default class App extends React.Component {
   }
 
   render(){
+    if(!this.state.assetsLoaded) return (<View><ActivityIndicator /></View>)
     return (
       <View style={{flex: 1}}>
-        {
-          this.state.assetsLoaded && <AppContainer />
-        }
+        <Provider store={reduxStore}>
+          <AppContainer />
+        </Provider>
       </View>
     );
   }
