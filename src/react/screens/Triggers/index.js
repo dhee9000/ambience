@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Modal } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { FloatingAction } from "react-native-floating-action";
 
 import * as ActionTypes from '../../../redux/ActionTypes';
@@ -14,7 +14,26 @@ import AddTriggerView from './AddTrigger';
 const testData = [
     {
         name: 'Test Trigger',
-        sourceCamera: ''
+        actions: [
+            {
+                id: 'testAction',
+                name: 'Lights Off',
+                testParam: 'testParam'
+            },
+            {
+                id: 'otherAcction',
+                name: 'Fan On',
+                type: 'air'
+
+            },
+
+            {
+                id: 'moreAction',
+                name: 'Music On',
+                type: 'music'
+
+            }
+        ]
     }
 ]
 
@@ -63,11 +82,45 @@ class EditProfile extends React.Component{
 
 const TriggerItem = props => {
     return(
-        <View>
 
-        </View>
+           <TouchableOpacity>
+           <View style={{borderRadius: 8.0, backgroundColor: '#efefef', margin: 4.0, padding: 16.0, justifyContent: 'center', alignItems: 'center'}}>
+               <View style ={{flex: 4, flexDirection: 'row'}}>
+
+                   <Text numberOfLines={1} style = {{fontSize: 32}}> {props.trigger.name}</Text>
+                   <Icon name={'edit'} size={32}/>
+                </View>
+                <FlatList
+                    data = {props.trigger.actions}
+                    renderItem={({item}) => {
+                        return(
+                            <TriggerActionItem action={item} />
+                        )
+                    }}
+
+                />
+
+            </View>
+           </TouchableOpacity>
     );
 }
+
+const TriggerActionItem = props=>{
+
+    return(
+
+    <View style={{ backgroundColor: '#efefef', padding: 16.0, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <View style ={{ flexDirection: 'row'}}>
+            <Text > {props.action.name}</Text>
+         </View>
+     </View>
+
+);
+}
+
+
+
+
 
 const mapStateToProps = state => ({
     // buildings: state.buildings.list,
