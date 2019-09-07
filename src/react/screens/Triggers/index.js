@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { FloatingAction } from "react-native-floating-action";
 
 import * as ActionTypes from '../../../redux/ActionTypes';
@@ -12,7 +12,16 @@ import { Feather as Icon } from '@expo/vector-icons'
 const testData = [
     {
         name: 'Test Trigger',
-        sourceCamera: ''
+        actions: [
+            {
+                id: 'testAction',
+                testParam: 'testParam'
+            },
+            {
+                id: 'otherAcction',
+                playlist: 'testList'
+            }
+        ]
     }
 ]
 
@@ -51,7 +60,10 @@ class EditProfile extends React.Component{
 const TriggerItem = props => {
     return(
         <View>
-
+           <TouchableOpacity>
+               <View style ={{flex: 4}}>
+                   <Text numberOfLines={1}>
+           </TouchableOpacity>
         </View>
     );
 }
