@@ -4835,6 +4835,14 @@ react-native-paper@^2.16.0:
     react-lifecycles-compat "^3.0.4"
     react-native-safe-area-view "^0.12.0"
 
+react-native-progress-steps@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/react-native-progress-steps/-/react-native-progress-steps-1.2.8.tgz#b5b888c693eb7c9fb19d6dd5f5167047a03d7c38"
+  integrity sha512-W9iQYg0ZPQPW8JSyuUp8XGhK+xDW2Vj7FPJasalHmY3hlTnZ24wdQLoj1tJxnka4vKDIciT2mBBIlLtkxmIRfw==
+  dependencies:
+    lodash "^4.17.11"
+    prop-types "^15.6.2"
+
 react-native-safe-area-view@^0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.12.0.tgz#5c312f087300ecf82e8541c3eac25d560e147f22"

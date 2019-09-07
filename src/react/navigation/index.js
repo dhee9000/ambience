@@ -8,6 +8,10 @@ import { Feather as Icon, MaterialCommunityIcons as IconsMaterial } from '@expo/
 import Colors from '../../config/Colors';
 
 import Splash from '../screens/Splash';
+import SignUp from '../screens/SignUp';
+import Login from '../screens/Login';
+
+//Signed In Screens
 import Buildings from '../screens/Buildings';
 import EditProfile from '../screens/EditProfile';
 import Triggers from '../screens/Triggers';
@@ -54,9 +58,11 @@ const LoggedInNavigator = createMaterialBottomTabNavigator(
 export default RootNavigator = createSwitchNavigator(
     {
         Splash,
+        SignUp,
+        Login,
         LoggedInNavigator,
     },
     {
-        initialRouteName: 'LoggedInNavigator'
+        initialRouteName: 'SignUp'
     }
 )

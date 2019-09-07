@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Modal } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { FloatingAction } from "react-native-floating-action";
 
@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 
 import { Heading, Text } from '../../components/StyledComponents';
 import { Feather as Icon } from '@expo/vector-icons'
+
+import AddTriggerView from './AddTrigger';
 
 const testData = [
     {
@@ -19,6 +21,10 @@ const testData = [
 class EditProfile extends React.Component{
     constructor(props){
         super(props)
+
+        this.state = {
+            addingTrigger: false,
+        };
     }
 
     render(){
@@ -42,7 +48,14 @@ class EditProfile extends React.Component{
                     ]}
                     floatingIcon={<Icon name={'git-merge'} size={24} color={'#fff'} />}
                     overrideWithAction
+                    onPressItem={() => {
+                        this.setState({addingTrigger: true})
+                    }}
                 />
+
+                <Modal animationType={'slide'} visible={this.state.addingTrigger}>
+                    <AddTriggerView dismiss={() => this.setState({addingTrigger: false,})}/>
+                </Modal>
             </View>
         )
     }

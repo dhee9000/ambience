@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase';
+import '@firebase/firestore';
 import firebaseConfig from '../config/Firebase';
 import ReduxSagaFirebase from 'redux-saga-firebase';
 
