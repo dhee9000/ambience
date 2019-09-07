@@ -9,6 +9,12 @@ import { connect } from 'react-redux';
 import { Heading, Text } from '../../components/StyledComponents';
 import { Feather as Icon } from '@expo/vector-icons'
 
+const testData = [
+    {
+        name: 'Test Trigger',
+        sourceCamera: ''
+    }
+]
 
 class EditProfile extends React.Component{
     constructor(props){
