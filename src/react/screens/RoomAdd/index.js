@@ -12,9 +12,9 @@ export default class RegForm extends React.Component
                 <View style={styles.regform}>
                     <Text style ={styles.header}>Register Room </Text>
 
-                    <TextInput style = {styles.TextInput} placeholder="Room Name" underlineColorAndroid={'transparent'} />
+                    <TextInput style = {styles.TextInput} placeholder="Room Name" />
 					<TouchableOpacity style = {styles.button}>
-						<Text style = {styles.btmtext}>Sign Up</Text>
+						<Text style = {styles.btmtext}>Add Room</Text>
 					</TouchableOpacity>
                 </View>
             );
@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
 	  alignSelf: 'stretch',
 	  height: 40,
 	  marginBottom: 30,
-	  color: '#fff',
-	  borderBottomColor: '#f#f#f#',
+	 
 	  borderBottomWidth: 1,
   },
   button:

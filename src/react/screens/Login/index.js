@@ -1,7 +1,24 @@
 import React, {Component} from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import {Heading, Text} from '../../components/StyledComponents';
+import Typefaces from '../../../config/Typefaces';
+import Colors from '../../../config/Colors';
 
-export default class LOGIN extends React.Component{
+import * as firebase from 'firebase';
+import '@firebase/firestore';
+import firebaseConfig from '../../../config/Firebase';
+
+//firebase.initializeApp(firebaseConfig);
+
+export default class Login extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state={
+          email: '',
+          password:'',
+        };
+    }
     render(){
         return( 
                 <View style = {styles.container}>
@@ -9,6 +26,8 @@ export default class LOGIN extends React.Component{
                         placeholder = "username or email"
                         
                         style = {styles.input}
+                        onChangeText={(text) => this.setState({email: text})}
+                        value = {this.state.email}
                         returnKeyType = "next"
                     />
                     <TextInput
@@ -16,6 +35,8 @@ export default class LOGIN extends React.Component{
                         returnKeyType = "go"
                         secureTextEntry
                         style = {styles.input}
+                        value={this.state.password}
+                        onChangeText={(text) => this.setState({password: text})}
                     />
 
                     <TouchableOpacity style = {styles.buttonContainer}>

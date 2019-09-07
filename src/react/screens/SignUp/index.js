@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Picker, ScrollView } from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
 import {Heading, Text} from '../../components/StyledComponents';
 import Typefaces from '../../../config/Typefaces';
@@ -17,7 +17,7 @@ export default class SignUp extends React.Component {
         this.state = {
             email: '',
             password:'',
-            gender: 'Male',
+            gender: '',
         };
     }
 
@@ -71,34 +71,35 @@ export default class SignUp extends React.Component {
                     onChangeText={text => this.setState({lname: text})}
                     style={styles.input}
                 />
-                <Text>Choose a Gender:</Text>
-                <Picker
-                    selectedValue={this.state.gender}
-                    style={{height: 50, width: 250, alignSelf: 'center'}}
-                    onValueChange={(itemValue, itemIndex) =>
-                        this.setState({gender: itemValue})
-                    }>
-                    <Picker.Item label="Male" value="Male" />
-                    <Picker.Item label="Female" value="Female" />
-                    <Picker.Item label="SJW" value="SJW" />
-                </Picker>
+               <TextInput
+                    placeholder="Gender"
+                    returnKeyType="next"
+                    value={this.state.gender}
+                    onChangeText={text => this.setState({gender: text})}
+                    style={styles.input}
+                    />
+                    
 
 
 
                 <TouchableOpacity style={styles.buttonContainer} onPress={async () => {
-                    await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password);
-                    await firebase.firestore().collection('profiles').doc(firebase.auth().currentUser.uid).set({
-                        fname: this.state.fname,
-                        lname: this.state.lname,
-                        gender: this.state.gender,
-                        username: this.state.username
-                    })
+                     await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password);
+                     await firebase.firestore().collection('profiles').doc(firebase.auth().currentUser.uid).set({
+                         fname: this.state.fname,
+                         lname: this.state.lname,
+                         gender: this.state.gender,
+                         username: this.state.username
+                     })
+                    this.props.navigation.navigate('LoggedInNavigator')
                 }}>
                     <Text style={styles.buttonText}>Submit</Text>
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.buttonContainer}
+                onPress={ () => {
+                 this.props.navigation.navigate('Login')
+                }}>
                     <Text style={styles.buttonText} > Already have an account? Login</Text>
                 </TouchableOpacity>
             </ScrollView>
