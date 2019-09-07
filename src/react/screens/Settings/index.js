@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 
 import * as ActionTypes from '../../../redux/ActionTypes';
 import { connect } from 'react-redux';
 
 import { Heading, Text } from '../../components/StyledComponents';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons'
+import Colors from '../../../config/Colors';
 
+import firebase from 'firebase';
 
 class EditProfile extends React.Component{
     constructor(props){
@@ -19,6 +21,19 @@ class EditProfile extends React.Component{
             <View style={{padding: 16.0}}>
                 <ScrollView>
                     <Heading style={{margin: 32.0, marginLeft: 16.0}}>Settings</Heading>
+                    <TouchableOpacity
+                    style={{borderColor: Colors.accent, borderBottomWidth: 1.0, borderTopWidth: 1.0, paddingVertical: 8.0, paddingHorizontal: 16.0,
+                        flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',
+                    }}
+                    onPress={async () => {
+                        await firebase.auth().signOut();
+                        this.props.navigation.navigate('Login');
+                    }}>
+                        <Icon name={'key'} size={32} />
+                        <View style={{marginLeft: 16.0}}>
+                            <Text style={{fontFamily: 'Cairo-Bold', fontSize: 24.0}}>Logout</Text>
+                        </View>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
         )

@@ -63,6 +63,6 @@ export default RootNavigator = createSwitchNavigator(
         LoggedInNavigator,
     },
     {
-        initialRouteName: 'SignUp'
+        initialRouteName: 'Login'
     }
 )
