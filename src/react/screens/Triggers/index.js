@@ -15,11 +15,21 @@ const testData = [
         actions: [
             {
                 id: 'testAction',
+                name: 'Lights Off',
                 testParam: 'testParam'
             },
             {
                 id: 'otherAcction',
-                playlist: 'testList'
+                name: 'Fan On',
+                type: 'air'
+                
+            },
+
+            {
+                id: 'moreAction',
+                name: 'Music On',
+                type: 'music'
+
             }
         ]
     }
@@ -59,14 +69,45 @@ class EditProfile extends React.Component{
 
 const TriggerItem = props => {
     return(
-        <View>
+        
            <TouchableOpacity>
-               <View style ={{flex: 4}}>
-                   <Text numberOfLines={1}>
+           <View style={{borderRadius: 8.0, backgroundColor: '#efefef', margin: 4.0, padding: 16.0, justifyContent: 'center', alignItems: 'center'}}>
+               <View style ={{flex: 4, flexDirection: 'row'}}>
+                  
+                   <Text numberOfLines={1} style = {{fontSize: 32}}> {props.trigger.name}</Text>
+                   <Icon name={'edit'} size={32}/>
+                </View>
+                <FlatList
+                    data = {props.trigger.actions}
+                    renderItem={({item}) => {
+                        return(
+                            <TriggerActionItem action={item} />
+                        )
+                    }}
+                  
+                />
+
+            </View>
            </TouchableOpacity>
-        </View>
     );
 }
+
+const TriggerActionItem = props=>{
+
+    return(
+   
+    <View style={{ backgroundColor: '#efefef', padding: 16.0, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <View style ={{ flexDirection: 'row'}}>
+            <Text > {props.action.name}</Text>
+         </View>
+     </View>
+   
+);
+}
+
+    
+
+
 
 const mapStateToProps = state => ({
     // buildings: state.buildings.list,
