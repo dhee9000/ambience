@@ -15,8 +15,19 @@ function* watchRoomRequested(){
     })
 }
 
+function* watchRoomsOfBuildingRequested(){
+    yield takeEvery(ActionTypes.BUILDINGS.ROOMS_REQUESTED, function* fetchBuildingRoomsSaga(action){
+        const snapshot = yield call(rsf.firestore.getCollection, firebase.firestore().collection('rooms').where('building', '==', action.building.id));
+        rooms = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}));
+        for(var i = 0; i< rooms.length; i++){
+            yield put({type: ActionTypes.ROOM.FETCHED, room: rooms[i]});
+        }
+    })
+}
+
 const roomSagas = [
-    watchRoomRequested
+    watchRoomRequested,
+    watchRoomsOfBuildingRequested
 ];
 
 export default function* roomSaga(){

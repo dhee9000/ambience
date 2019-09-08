@@ -37,7 +37,8 @@ class Rooms extends React.Component {
     }
 
     componentDidMount(){
-        this.props.fetchBuildings();
+        let buildingDetails = this.props.navigation.getParam('building', {nickname: 'Building'})
+        this.props.fetchRoomsofBuilding(buildingDetails);
     }
 
     render() {
@@ -56,8 +57,8 @@ class Rooms extends React.Component {
                             </Transition>
                         </View>
                     }
-                    ListEmptyComponent={<Text style={{alignSelf: 'center'}}>No Buildings Added.</Text>}
-                    data={this.props.rooms}
+                    ListEmptyComponent={<Text style={{alignSelf: 'center'}}>No Rooms Added.</Text>}
+                    data={this.props.rooms[buildingDetails.id]}
                     renderItem={({ item }) => {
                         return (
                             <RoomListing room={item} navigation={this.props.navigation} />
@@ -99,7 +100,7 @@ class Rooms extends React.Component {
                             value={this.state.newRoomName}
                         />
                         <Button title={'Add'} disabled={this.state.newRoomName.length < 2} onPress={() => {
-                            firebase.firestore().collection('buildings').doc().set({
+                            firebase.firestore().collection('rooms').doc().set({
                                 nickname: this.state.newRoomName,
                                 building: buildingDetails.id
                             });
@@ -129,11 +130,11 @@ const RoomListing = props => {
 }
 
 const mapStateToProps = state => ({
-    rooms: state.rooms.byId
+    rooms: state.rooms.byBuildingId
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchBuildings: () => dispatch({type: ActionTypes.BUILDINGS.REQUESTED})
+    fetchRoomsofBuilding: (building) => dispatch({type: ActionTypes.BUILDINGS.ROOMS_REQUESTED, building})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rooms);
