@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>600076203058-o4tj3nvkl9qh014nnc0fn0lvaffgkknj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.600076203058-o4tj3nvkl9qh014nnc0fn0lvaffgkknj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAfssLfTfNaWYwzK9YsQQJx0n3KNNkTR9w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>600076203058</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.xyz.ambience</string>
+	<key>PROJECT_ID</key>
+	<string>ambience-home</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ambience-home.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:600076203058:ios:52ad60f5022ec37c89782b</string>
+	<key>DATABASE_URL</key>
+	<string>https://ambience-home.firebaseio.com</string>
+</dict>
+</plist>

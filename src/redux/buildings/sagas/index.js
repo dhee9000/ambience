@@ -17,9 +17,8 @@ const processBuildingsResponse = payload => {
 
 function* watchBuildingsRequested(){
     yield takeEvery(ActionTypes.BUILDINGS.REQUESTED, function* fetchBuildingsSaga(){
-        let user = firebase.auth().currentUser;
         const snapshot = yield call(rsf.firestore.getCollection,
-            firebase.firestore().collection('buildings')); //.where('members', 'array-contains', firebase.auth().currentUser.uid));
+            firebase.firestore().collection('buildings').where('members', 'array-contains', firebase.auth().currentUser.uid));
         buildings = processBuildingsResponse(snapshot.docs);
         yield put({type: ActionTypes.BUILDINGS.FETCHED, buildings});
     });

@@ -60,7 +60,6 @@ const LoggedInNavigator = createMaterialBottomTabNavigator(
         },
     },
     {
-        // shifting: true,
         activeTintColor: Colors.primaryDark,
         inactiveTintColor: Colors.primary,
         barStyle: {
@@ -73,10 +72,10 @@ export default RootNavigator = createSwitchNavigator(
     {
         Splash,
         SignUp,
-        Login,
+        // Login,
         LoggedInNavigator,
     },
     {
-        initialRouteName: 'LoggedInNavigator'
+        initialRouteName: 'Splash'
     }
 )

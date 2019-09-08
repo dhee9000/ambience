@@ -15,6 +15,9 @@ import BottomSheet from "react-native-raw-bottom-sheet";
 import Typefaces from '../../../config/Typefaces';
 import Colors from '../../../config/Colors';
 
+import firebase from 'firebase';
+import '@firebase/firestore';
+
 const testData = [
     {
         nickname: 'Test Building',
@@ -63,16 +66,21 @@ class Buildings extends React.Component{
         }
     }
 
+    componentDidMount(){
+        this.props.fetchBuildings();
+    }
+
     render(){
         return(
-            <View>
+            <View style={{flex: 1}}>
                 <FlatList
                     ListHeaderComponent={
                         <Transition disappear='left' appear='right'>
                             <Heading style={{margin: 32.0, marginLeft: 16.0}}>Your Ambience</Heading>
                         </Transition>
                     }
-                    data={testData}
+                    ListEmptyComponent={<Text style={{alignSelf: 'center'}}>No Buildings Added.</Text>}
+                    data={this.props.buildings}
                     renderItem={({item}) => {
                         return(
                             <BuildingListing building={item} navigation={this.props.navigation} />
@@ -115,7 +123,12 @@ class Buildings extends React.Component{
                             onChangeText = {text => this.setState({newBuildingName: text})}
                             value={this.state.newBuildingName}
                         />
-                        <Button title={'Add'} disabled={this.state.newBuildingName.length < 2} />
+                        <Button title={'Add'} disabled={this.state.newBuildingName.length < 2} onPress={() => {
+                            firebase.firestore().collection('buildings').doc().set({
+                                nickname: this.state.newBuildingName,
+                                owner: firebase.auth().currentUser.uid
+                            });
+                        }}/>
                     </View>
                 </BottomSheet>
             </View>
@@ -140,12 +153,11 @@ const BuildingListing = props => {
 }
 
 const mapStateToProps = state => ({
-    // buildings: state.buildings.list,
-    // status: state.building.status
+    buildings: state.buildings
 })
 
 const mapDispatchToProps = dispatch => ({
-    refreshBuildings: dispatch({type: ActionTypes.BUILDINGS.REQUESTED})
+    fetchBuildings: () => dispatch({type: ActionTypes.BUILDINGS.REQUESTED})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buildings);

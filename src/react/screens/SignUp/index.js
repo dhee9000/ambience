@@ -26,34 +26,12 @@ export default class SignUp extends React.Component {
                 <Heading>Create your Account</Heading>
                 <Text>Enter your details to sign up for Ambience</Text>
                 <TextInput
-                    placeholder="Enter your Email"
-                    style={styles.input}
-                    onChangeText={(text) => this.setState({email: text})}
-                    value={this.state.email}
-                />
-                <TextInput
                     placeholder="Choose a Username"
                     style={styles.input}
                     value={this.state.username}
                     onChangeText={text => this.setState({username: text})}
                     returnKeyType="next"
 
-                />
-                <TextInput
-                    placeholder="Choose a Password"
-                    returnKeyType="next"
-                    secureTextEntry
-                    style={styles.input}
-                    value={this.state.password}
-                    onChangeText={(text) => this.setState({password: text})}
-                />
-                <TextInput
-                    placeholder="Enter Password Again"
-                    returnKeyType="next"
-                    secureTextEntry
-                    style={styles.input}
-                    value={this.state.confirmation}
-                    onChangeText={text => this.setState({confirmation: text})}
                 />
                 <TextInput
                     placeholder="First Name"
@@ -75,13 +53,11 @@ export default class SignUp extends React.Component {
                     value={this.state.gender}
                     onChangeText={text => this.setState({gender: text})}
                     style={styles.input}
-                    />
-                    
+                />
 
 
 
                 <TouchableOpacity style={styles.buttonContainer} onPress={async () => {
-                     await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password);
                      await firebase.firestore().collection('profiles').doc(firebase.auth().currentUser.uid).set({
                          fname: this.state.fname,
                          lname: this.state.lname,
@@ -94,12 +70,12 @@ export default class SignUp extends React.Component {
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style={styles.buttonContainer}
+                {/* <TouchableOpacity style={styles.buttonContainer}
                 onPress={ () => {
                  this.props.navigation.navigate('Login')
                 }}>
                     <Text style={styles.buttonText} > Already have an account? Login</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </ScrollView>
             </View>
 

@@ -7,9 +7,13 @@ import { Heading, Text } from '../../components/StyledComponents';
 import { FloatingAction } from "react-native-floating-action";
 import BottomSheet from "react-native-raw-bottom-sheet";
 
+import firebase from 'firebase';
+import '@firebase/firestore';
+
 import { Transition } from 'react-navigation-fluid-transitions';
 
 import { connect } from 'react-redux';
+import * as ActionTypes from '../../../redux/ActionTypes';
 
 const testData = [
     {
@@ -32,6 +36,10 @@ class Rooms extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.props.fetchBuildings();
+    }
+
     render() {
 
         let buildingDetails = this.props.navigation.getParam('building', {nickname: 'Building'})
@@ -48,7 +56,8 @@ class Rooms extends React.Component {
                             </Transition>
                         </View>
                     }
-                    data={testData}
+                    ListEmptyComponent={<Text style={{alignSelf: 'center'}}>No Buildings Added.</Text>}
+                    data={this.props.rooms}
                     renderItem={({ item }) => {
                         return (
                             <RoomListing room={item} navigation={this.props.navigation} />
@@ -89,7 +98,12 @@ class Rooms extends React.Component {
                             onChangeText={text => this.setState({ newRoomName: text })}
                             value={this.state.newRoomName}
                         />
-                        <Button title={'Add'} disabled={this.state.newRoomName.length < 2} />
+                        <Button title={'Add'} disabled={this.state.newRoomName.length < 2} onPress={() => {
+                            firebase.firestore().collection('buildings').doc().set({
+                                nickname: this.state.newRoomName,
+                                building: buildingDetails.id
+                            });
+                        }}/>
                     </View>
                 </BottomSheet>
             </View>
@@ -115,11 +129,11 @@ const RoomListing = props => {
 }
 
 const mapStateToProps = state => ({
-
+    rooms: state.rooms.byId
 });
 
 const mapDispatchToProps = dispatch => ({
-
+    fetchBuildings: () => dispatch({type: ActionTypes.BUILDINGS.REQUESTED})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Rooms);

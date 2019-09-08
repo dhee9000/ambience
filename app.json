@@ -17,14 +17,24 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.xyz.ambient",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.600076203058-o4tj3nvkl9qh014nnc0fn0lvaffgkknj"
+        }
+      }
+    },
+    "android": {
+      "package": "com.xyz.ambient",
+      "googleServicesFile": "./google-services.json"
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
+    ]
   }
 }

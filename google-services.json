@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "600076203058",
+    "firebase_url": "https://ambience-home.firebaseio.com",
+    "project_id": "ambience-home",
+    "storage_bucket": "ambience-home.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600076203058:android:f8493e2de89d07be89782b",
+        "android_client_info": {
+          "package_name": "com.xyz.ambience"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600076203058-jg2ovp45retcjtm27qnbt8d5s506g6j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXRjzfqiL08EqWGAuzO7ltEIH2tITPzRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600076203058-jg2ovp45retcjtm27qnbt8d5s506g6j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
