@@ -83,12 +83,15 @@ class EditProfile extends React.Component{
 const TriggerItem = props => {
     return(
 
-           <TouchableOpacity>
+         
            <View style={{borderRadius: 8.0, backgroundColor: '#efefef', margin: 4.0, padding: 16.0, justifyContent: 'center', alignItems: 'center'}}>
                <View style ={{flex: 4, flexDirection: 'row'}}>
 
                    <Text numberOfLines={1} style = {{fontSize: 32}}> {props.trigger.name}</Text>
+                   <TouchableOpacity>
                    <Icon name={'edit'} size={32}/>
+                
+                   </TouchableOpacity>
                 </View>
                 <FlatList
                     data = {props.trigger.actions}
@@ -101,7 +104,7 @@ const TriggerItem = props => {
                 />
 
             </View>
-           </TouchableOpacity>
+           
     );
 }
 
