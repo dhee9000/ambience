@@ -40,7 +40,9 @@ class Rooms extends React.Component {
                 <FlatList
                     ListHeaderComponent={
                         <View>
-                            <Heading style={{ margin: 32.0, marginBottom: 0, marginLeft: 16.0 }}>Rooms</Heading>
+                            <Transition disappear='left' appear='right'>
+                                <Heading style={{ margin: 32.0, marginBottom: 0, marginLeft: 16.0 }}>Rooms</Heading>
+                            </Transition>
                             <Transition shared={buildingDetails.nickname}>
                                 <Text style={{marginLeft: 16.0, marginBottom: 16.0, fontSize: 32.0}}>{buildingDetails.nickname}</Text>
                             </Transition>

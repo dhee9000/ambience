@@ -67,7 +67,11 @@ class Buildings extends React.Component{
         return(
             <View>
                 <FlatList
-                    ListHeaderComponent={<Heading style={{margin: 32.0, marginLeft: 16.0}}>Your Ambience</Heading>}
+                    ListHeaderComponent={
+                        <Transition disappear='left' appear='right'>
+                            <Heading style={{margin: 32.0, marginLeft: 16.0}}>Your Ambience</Heading>
+                        </Transition>
+                    }
                     data={testData}
                     renderItem={({item}) => {
                         return(
