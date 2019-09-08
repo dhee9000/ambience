@@ -130,7 +130,8 @@ class AddTrigger extends React.Component{
                     activeLabelColor={Colors.primaryDark}
                     completedProgressBarColor={Colors.primaryDark}
                     completedStepIconColor={Colors.primaryDark}>
-                    <ProgressStep label={'Choose Building'} nextBtnDisabled={!this.state.selectedBuildingId}>
+                    <ProgressStep label={'Choose Building'} nextBtnDisabled={!this.state.selectedBuildingId}
+                        onNext={() => this.props.fetchRoomsofBuilding({id: this.state.selectedBuildingId})}>
                         <Text>Choose which building to create the trigger in:</Text>
                         <FlatList
                             data={this.props.buildings}
@@ -142,7 +143,7 @@ class AddTrigger extends React.Component{
                     <ProgressStep label={'Choose Room'} nextBtnDisabled={!this.state.selectedRoomId}>
                         <Text>Choose which room to create the trigger in:</Text>
                         <FlatList
-                            data={testRooms}
+                            data={this.props.rooms.byBuildingId[this.state.selectedBuildingId]}
                             renderItem={({item}) => {
                                 return(<RoomListing room={item} />)
                             }}
@@ -214,11 +215,13 @@ const Card = props => {
 }
 
 const mapStateToProps = state => ({
-    buildings: state.buildings
+    buildings: state.buildings,
+    rooms: state.rooms,
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchBuildings: () => dispatch({type: ActionTypes.BUILDINGS.REQUESTED})
+    fetchBuildings: () => dispatch({type: ActionTypes.BUILDINGS.REQUESTED}),
+    fetchRoomsofBuilding: (building) => dispatch({type: ActionTypes.BUILDINGS.ROOMS_REQUESTED, building})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTrigger);
