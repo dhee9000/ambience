@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TouchableOpacity } from 'react-native';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
@@ -8,6 +8,9 @@ import { Text, Heading } from '../../components/StyledComponents';
 
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { FlatList } from 'react-native-gesture-handler';
+
+import * as ActionTypes from '../../../redux/ActionTypes';
+import { connect } from 'react-redux';
 
 const testBuildings = [
     {
@@ -91,10 +94,21 @@ const testActions = [
 ]
 
 
-export default class AddTrigger extends React.Component{
+class AddTrigger extends React.Component{
 
     constructor(props){
         super(props);
+
+        this.state = {
+            selectedBuildingId: false,
+            selectedRoomId: false,
+            selectedRegionId: false,
+            selectedActions: []
+        }
+    }
+
+    componentDidMount(){
+        this.props.fetchBuildings();
     }
 
     render(){
@@ -116,16 +130,16 @@ export default class AddTrigger extends React.Component{
                     activeLabelColor={Colors.primaryDark}
                     completedProgressBarColor={Colors.primaryDark}
                     completedStepIconColor={Colors.primaryDark}>
-                    <ProgressStep label={'Choose Building'}>
+                    <ProgressStep label={'Choose Building'} nextBtnDisabled={!this.state.selectedBuildingId}>
                         <Text>Choose which building to create the trigger in:</Text>
                         <FlatList
-                            data={testBuildings}
+                            data={this.props.buildings}
                             renderItem={({item}) => {
-                                return(<BuildingListing building={item} />)
+                                return(<BuildingListing selectBuilding={ id => this.setState({selectedBuildingId: id})} selected={item.id === this.state.selectedBuildingId} building={item} />)
                             }}
                         />
                     </ProgressStep>
-                    <ProgressStep label={'Choose Room'}>
+                    <ProgressStep label={'Choose Room'} nextBtnDisabled={!this.state.selectedRoomId}>
                         <Text>Choose which room to create the trigger in:</Text>
                         <FlatList
                             data={testRooms}
@@ -135,7 +149,7 @@ export default class AddTrigger extends React.Component{
                         />
                     </ProgressStep>
 
-                    <ProgressStep label={'Choose Region'}>
+                    <ProgressStep label={'Choose Region'} nextBtnDisabled={!this.state.selectedRegionId}>
                     <Text>Choose which region should activate the trigger:</Text>
                         <FlatList
                             data={testRegions}
@@ -162,9 +176,9 @@ export default class AddTrigger extends React.Component{
 
 const BuildingListing = props => {
     return (
-        <Card>
-            <Heading style={{fontSize: 24.0}}>{props.building.nickname}</Heading>
-            <Text>{props.building.rooms ? props.building.rooms.length : 0} rooms in this building.</Text>
+        <Card onPress={() => props.selectBuilding(props.building.id)} style={{backgroundColor: props.selected ? Colors.primary : '#EFEFEF'}}>
+            <Heading style={{fontSize: 24.0, color: props.selected ? '#fff' : Colors.primary}}>{props.building.nickname}</Heading>
+            <Text style={{color: props.selected ? '#fff' : Colors.primary}}>{props.building.rooms ? props.building.rooms.length : 0} rooms in this building.</Text>
         </Card>
     );
 }
@@ -193,8 +207,18 @@ const ActionListing = props => {
 
 const Card = props => {
     return(
-        <View {...props} style={{backgroundColor: '#efefef', borderRadius: 16.0, padding: 8.0, margin: 8.0}}>
+        <TouchableOpacity {...props} style={[{backgroundColor: '#efefef', borderRadius: 16.0, padding: 8.0, margin: 8.0}, props.style ? props.style : null]}>
             {props.children}
-        </View>
+        </TouchableOpacity>
     )
 }
+
+const mapStateToProps = state => ({
+    buildings: state.buildings
+})
+
+const mapDispatchToProps = dispatch => ({
+    fetchBuildings: () => dispatch({type: ActionTypes.BUILDINGS.REQUESTED})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddTrigger);

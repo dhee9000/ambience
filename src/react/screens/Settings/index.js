@@ -11,6 +11,8 @@ import Colors from '../../../config/Colors';
 
 import firebase from 'firebase';
 
+import {AsyncStorage} from 'react-native';
+
 class EditProfile extends React.Component{
     constructor(props){
         super(props)
@@ -27,7 +29,7 @@ class EditProfile extends React.Component{
                     }}
                     onPress={async () => {
                         await firebase.auth().signOut();
-                        await Facebook
+                        await AsyncStorage.removeItem('SIGNED_IN');
                         this.props.navigation.navigate('Login');
                     }}>
                         <Icon name={'key'} size={32} />

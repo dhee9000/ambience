@@ -42,9 +42,7 @@ export default class Login extends React.Component {
                             if (type === 'success') {
                                 await AsyncStorage.setItem('SIGNED_IN', 'TRUE')
                                 const credential = firebase.auth.FacebookAuthProvider.credential(token);
-                                firebase.auth().signInWithCredential(credential).catch((error) => {
-                                    alert(error.message);
-                                });
+                                await firebase.auth().signInWithCredential(credential);
                                 let profileSnapshot = await firebase.firestore().collection('profiles').doc(firebase.auth().currentUser.uid).get();
                                 if (!profileSnapshot.exists) {
                                     this.props.navigation.navigate('SignUp');

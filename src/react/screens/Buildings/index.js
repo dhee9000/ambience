@@ -87,6 +87,7 @@ class Buildings extends React.Component{
                         )
                     }}
                     onRefresh={() => this.props.fetchBuildings()}
+                    refreshing={this.state.refreshing}
                     keyExtractor={item => (item.nickname)}
                     style={{padding: 16.0}}
                 />
@@ -131,6 +132,9 @@ class Buildings extends React.Component{
                                 members: [
                                     firebase.auth().currentUser.uid
                                 ]
+                            }).then(() => {
+                                this.props.fetchBuildings();
+                                this.BottomSheet.close();
                             });
                         }}/>
                     </View>

@@ -20,6 +20,10 @@ export default class RoomDetails extends React.Component{
                         <Text style={{fontSize: 32.0}}>{roomData.nickname}</Text>
                     </Transition>
                 </View>
+                <View style={{alignItems: 'center'}}>
+                    <Text>2 Cameras.</Text>
+                    <Text>3 Devices.</Text>
+                </View>
             </View>
         )
     }

@@ -103,6 +103,9 @@ class Rooms extends React.Component {
                             firebase.firestore().collection('rooms').doc().set({
                                 nickname: this.state.newRoomName,
                                 building: buildingDetails.id
+                            }).then(() => {
+                                this.props.fetchRoomsofBuilding(buildingDetails);
+                                this.BottomSheet.close();
                             });
                         }}/>
                     </View>
