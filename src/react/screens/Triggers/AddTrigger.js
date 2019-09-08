@@ -144,7 +144,7 @@ class AddTrigger extends React.Component{
                         <FlatList
                             data={testRooms}
                             renderItem={({item}) => {
-                                return(<RoomListing room={item} />)
+                                return(<RoomListing selectRoom={ id => this.setState({selectRoomId: id})} selected = {item.id === this.state.selectedRoomId} rooms={item} />)
                             }}
                         />
                     </ProgressStep>
@@ -184,10 +184,10 @@ const BuildingListing = props => {
 }
 const RoomListing = props => {
     return (
-        <Card>
-            <Heading style={{fontSize: 24.0}}>{props.room.nickname}</Heading>
-            <Text>{props.room.regions ? props.room.regions.length : 0} regions in this room.</Text>
-        </Card>
+        <Card onPress={() => props.selectRoom(props.room.id)} style={{backgroundColor: props.selected ? Colors.primary : '#EFEFEF'}}>
+            <Heading style={{fontSize: 24.0, color: props.selected ? '#fff' : Colors.primary}}>{props.room.nickname}</Heading>
+            <Text style={{color: props.selected ? '#fff' : Colors.primary}}>{props.room.regions ? props.room.regions.length : 0} regions in this building.</Text>
+            </Card>
     );
 }
 const RegionListing = props => {
