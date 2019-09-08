@@ -1,12 +1,19 @@
 import React from 'react';
-import { View, ScrollView, } from 'react-native';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { View, ScrollView, Button } from 'react-native';
+import { FlatList, TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 
 import * as ActionTypes from '../../../redux/ActionTypes';
 import { connect } from 'react-redux';
 
 import { Heading, Text } from '../../components/StyledComponents';
-import { MaterialCommunityIcons as Icon } from '@expo/vector-icons'
+import { MaterialCommunityIcons, Feather as Icon } from '@expo/vector-icons'
+
+import { Transition } from 'react-navigation-fluid-transitions';
+
+import { FloatingAction } from "react-native-floating-action";
+import BottomSheet from "react-native-raw-bottom-sheet";
+import Typefaces from '../../../config/Typefaces';
+import Colors from '../../../config/Colors';
 
 const testData = [
     {
@@ -50,6 +57,10 @@ const testData = [
 class Buildings extends React.Component{
     constructor(props){
         super(props)
+
+        this.state={
+            newBuildingName: '',
+        }
     }
 
     render(){
@@ -60,12 +71,49 @@ class Buildings extends React.Component{
                     data={testData}
                     renderItem={({item}) => {
                         return(
-                            <BuildingListing building={item} />
+                            <BuildingListing building={item} navigation={this.props.navigation} />
                         )
                     }}
                     keyExtractor={item => (item.nickname)}
                     style={{padding: 16.0}}
                 />
+                <FloatingAction
+                    actions={[
+                        {
+                            text: "Add Trigger",
+                            icon: <Icon name={'plus'} size={24} color={'#fff'} />,
+                            name: "bt_language",
+                            position: 1
+                        },
+                    ]}
+                    floatingIcon={<Icon name={'plus'} size={24} color={'#fff'} />}
+                    overrideWithAction
+                    onPressItem={() => {
+                        this.BottomSheet.open()
+                    }}
+                />
+                <BottomSheet
+                    ref={ref => {
+                        this.BottomSheet = ref;
+                    }}
+                    height={200}
+                    duration={250}
+                    closeOnDragDown
+                >
+                    <View style={{flex: 1, padding: 16.0, justifyContent: 'space-between'}}>
+                        <Text style={{fontFamily: Typefaces.Bold, fontSize: 24.0}}>Add A New Building</Text>
+                        <TextInput
+                            ref={ref => {
+                                this.BuildingNameInput = ref
+                            }}
+                            style={{color: Colors.primary}}
+                            placeholder={'Enter the Name of the Building...'}
+                            onChangeText = {text => this.setState({newBuildingName: text})}
+                            value={this.state.newBuildingName}
+                        />
+                        <Button title={'Add'} disabled={this.state.newBuildingName.length < 2} />
+                    </View>
+                </BottomSheet>
             </View>
         )
     }
@@ -73,11 +121,13 @@ class Buildings extends React.Component{
 
 const BuildingListing = props => {
     return(
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Rooms', {building: props.building})}>
             <View style={{borderRadius: 8.0, backgroundColor: '#efefef', margin: 4.0, padding: 16.0, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                <Icon name={'home-modern'} size={48} style={{flex: 1}} />
+                <MaterialCommunityIcons name={'home-modern'} size={48} style={{flex: 1}} />
                 <View style={{flex: 4}}>
-                    <Text numberOfLines={1} style={{fontSize: 32.0}}>{props.building.nickname}</Text>
+                    <Transition shared={props.building.nickname}>
+                        <Text numberOfLines={1} style={{fontSize: 32.0}}>{props.building.nickname}</Text>
+                    </Transition>
                     <Text>{props.building.members.length} People</Text>
                 </View>
             </View>

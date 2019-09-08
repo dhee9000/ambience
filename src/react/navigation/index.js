@@ -13,15 +13,29 @@ import Login from '../screens/Login';
 
 //Signed In Screens
 import Buildings from '../screens/Buildings';
+import Rooms from '../screens/Rooms';
+import RoomDetails from '../screens/RoomDetails';
 import EditProfile from '../screens/EditProfile';
 import Triggers from '../screens/Triggers';
 import Settings from '../screens/Settings';
+import { createFluidNavigator } from 'react-navigation-fluid-transitions';
+
+const BuildingsStack = createFluidNavigator(
+    {
+        Buildings,
+        Rooms,
+        RoomDetails,
+    },
+    {
+        headerMode: 'none',
+    }
+)
 
 
 const LoggedInNavigator = createMaterialBottomTabNavigator(
     {
         Buildings: {
-            screen: Buildings,
+            screen: BuildingsStack,
             navigationOptions: {
                 tabBarIcon: props => (<Icon name={'home'} size={24} color={props.tintColor} />)
             }
@@ -63,6 +77,6 @@ export default RootNavigator = createSwitchNavigator(
         LoggedInNavigator,
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'LoggedInNavigator'
     }
 )
