@@ -9,8 +9,6 @@ import * as firebase from 'firebase';
 import '@firebase/firestore';
 import firebaseConfig from '../../../config/Firebase';
 
-firebase.initializeApp(firebaseConfig);
-
 export default class SignUp extends React.Component {
     constructor(props){
         super(props);

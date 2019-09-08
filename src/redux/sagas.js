@@ -1,7 +1,11 @@
 import { all, spawn } from 'redux-saga/effects';
 
-const allWatcherSagas = [
+import buildingsSaga from './buildings/sagas';
+import roomSaga from './rooms/sagas';
 
+const allWatcherSagas = [
+    buildingsSaga,
+    roomSaga,
 ];
 
 export default function* rootSaga(){

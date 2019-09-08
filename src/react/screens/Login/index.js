@@ -8,9 +8,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import * as firebase from 'firebase';
 import '@firebase/firestore';
-import firebaseConfig from '../../../config/Firebase';
-
-//firebase.initializeApp(firebaseConfig);
 
 export default class Login extends React.Component {
     constructor(props) {
