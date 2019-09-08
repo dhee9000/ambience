@@ -86,6 +86,7 @@ class Buildings extends React.Component{
                             <BuildingListing building={item} navigation={this.props.navigation} />
                         )
                     }}
+                    onRefresh={() => this.props.fetchBuildings()}
                     keyExtractor={item => (item.nickname)}
                     style={{padding: 16.0}}
                 />
@@ -126,7 +127,10 @@ class Buildings extends React.Component{
                         <Button title={'Add'} disabled={this.state.newBuildingName.length < 2} onPress={() => {
                             firebase.firestore().collection('buildings').doc().set({
                                 nickname: this.state.newBuildingName,
-                                owner: firebase.auth().currentUser.uid
+                                owner: firebase.auth().currentUser.uid,
+                                members: [
+                                    firebase.auth().currentUser.uid
+                                ]
                             });
                         }}/>
                     </View>

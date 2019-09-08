@@ -7,7 +7,6 @@ import Colors from '../../../config/Colors';
 
 import * as firebase from 'firebase';
 import '@firebase/firestore';
-import firebaseConfig from '../../../config/Firebase';
 
 export default class SignUp extends React.Component {
     constructor(props){

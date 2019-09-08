@@ -27,6 +27,7 @@ class EditProfile extends React.Component{
                     }}
                     onPress={async () => {
                         await firebase.auth().signOut();
+                        await Facebook
                         this.props.navigation.navigate('Login');
                     }}>
                         <Icon name={'key'} size={32} />
@@ -46,7 +47,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

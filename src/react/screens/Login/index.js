@@ -6,8 +6,13 @@ import Colors from '../../../config/Colors';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { AsyncStorage } from 'react-native';
+
 import * as firebase from 'firebase';
 import '@firebase/firestore';
+
+import * as Facebook from 'expo-facebook';
+import * as facebookConfig from '../../../config/Facebook';
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -22,35 +27,37 @@ export default class Login extends React.Component {
         return (
             <View style={{ flex: 1, justifyContent: 'space-evenly', alignItems: 'center', padding: 16.0 }}>
                 <Image source={require('../../../../assets/icon.png')} style={{ height: 150, width: 150 }} />
-                <LinearGradient
-                    colors={['#F2994A', '#F2C94C']}
-                    style={{ borderRadius: 16.0, padding: 24.0, alignSelf: 'stretch' }}>
-                    <Heading style={{color: Colors.primary}}>Login</Heading>
-                    <TextInput
-                        placeholder="Email"
-                        placeholderTextColor={Colors.primary}
-                        style={styles.input}
-                        onChangeText={(text) => this.setState({ email: text })}
-                        value={this.state.email}
-                        returnKeyType="next"
-                    />
-                    <TextInput
-                        placeholder="Password"
-                        placeholderTextColor={Colors.primary}
-                        returnKeyType="go"
-                        secureTextEntry
-                        style={styles.input}
-                        value={this.state.password}
-                        onChangeText={(text) => this.setState({ password: text })}
-                    />
-                </LinearGradient>
-                <View style={{alignSelf: 'stretch'}}>
+                <Heading>Ambience uses Facebook Login</Heading>
+                <View style={{ alignSelf: 'stretch' }}>
                     <TouchableOpacity style={styles.buttonContainer} onPress={async () => {
-                        try{
-                            await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password);
-                            this.props.navigation.navigate('LoggedInNavigator');
+                        try {
+                            let {
+                                type,
+                                token,
+                                expires,
+                                permissions,
+                                declinedPermissions,
+                            } = await Facebook.logInWithReadPermissionsAsync(facebookConfig.APP_ID, {});
+
+                            if (type === 'success') {
+                                await AsyncStorage.setItem('SIGNED_IN', 'TRUE')
+                                const credential = firebase.auth.FacebookAuthProvider.credential(token);
+                                firebase.auth().signInWithCredential(credential).catch((error) => {
+                                    alert(error.message);
+                                });
+                                let profileSnapshot = await firebase.firestore().collection('profiles').doc(firebase.auth().currentUser.uid).get();
+                                if (!profileSnapshot.exists) {
+                                    this.props.navigation.navigate('SignUp');
+                                }
+                                else {
+                                    this.props.navigation.navigate('LoggedInNavigator');
+                                }
+                            }
+                            else {
+                                alert('Can\'t log in at this time, please try again later!');
+                            }
                         }
-                        catch(error){
+                        catch (error) {
                             alert('Error Logging In');
                         }
                     }}>

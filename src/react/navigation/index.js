@@ -72,7 +72,7 @@ export default RootNavigator = createSwitchNavigator(
     {
         Splash,
         SignUp,
-        // Login,
+        Login,
         LoggedInNavigator,
     },
     {
