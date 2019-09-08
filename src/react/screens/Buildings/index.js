@@ -141,7 +141,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    refreshBuildings: dispatch({type: ActionTypes.BUILDINGS.FETCH_REQUESTED})
+    refreshBuildings: dispatch({type: ActionTypes.BUILDINGS.REQUESTED})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Buildings);
